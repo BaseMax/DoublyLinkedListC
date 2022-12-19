@@ -9,8 +9,9 @@
  * 
  */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h> // printf, scanf
+#include <stdlib.h> // malloc, free
+#include <stdbool.h> // bool, true, false
 
 typedef struct Node {
     int data;
@@ -153,4 +154,154 @@ void deleteLast(DoublyLinkedList *list) {
     list->tail->next = NULL;
     free(temp);
     list->size--;
+}
+
+/**
+ * @brief Delete the node at the given index
+ * 
+ * @param list 
+ * @param index 
+ */
+void deleteAtIndex(DoublyLinkedList *list, int index) {
+    if(index < 0 || index >= list->size) {
+        printf("Invalid index!\n");
+        return;
+    }
+    if(index == 0) {
+        deleteFirst(list);
+        return;
+    }
+    else if(index == list->size - 1) {
+        deleteLast(list);
+        return;
+    }
+    Node *temp = list->head;
+    for(int i = 0; i < index; i++) {
+        temp = temp->next;
+    }
+    temp->prev->next = temp->next;
+    temp->next->prev = temp->prev;
+    free(temp);
+    list->size--;
+}
+
+/**
+ * @brief Print the list
+ * 
+ * @param list 
+ */
+void printList(DoublyLinkedList *list) {
+    if(list->head == NULL) {
+        printf("List is empty!\n");
+        return;
+    }
+    Node *temp = list->head;
+    while(temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+/**
+ * @brief Print the list in reverse order
+ * 
+ * @param list 
+ */
+void printListReverse(DoublyLinkedList *list) {
+    if(list->head == NULL) {
+        printf("List is empty!\n");
+        return;
+    }
+    Node *temp = list->tail;
+    while(temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->prev;
+    }
+    printf("\n");
+}
+
+/**
+ * @brief Get the size of the list
+ * 
+ * @param list 
+ * @return int 
+ */
+int getSize(DoublyLinkedList *list) {
+    return list->size;
+}
+
+/**
+ * @brief Get the data at the given index
+ * 
+ * @param list 
+ * @param index 
+ * @return int 
+ */
+int getDataAtIndex(DoublyLinkedList *list, int index) {
+    if(index < 0 || index >= list->size) {
+        printf("Invalid index!\n");
+        return -1;
+    }
+    Node *temp = list->head;
+    for(int i = 0; i < index; i++) {
+        temp = temp->next;
+    }
+    return temp->data;
+}
+
+/**
+ * @brief Get the index of the given data
+ * 
+ * @param list 
+ * @param data 
+ * @return int 
+ */
+int getIndex(DoublyLinkedList *list, int data) {
+    Node *temp = list->head;
+    for(int i = 0; i < list->size; i++) {
+        if(temp->data == data) {
+            return i;
+        }
+        temp = temp->next;
+    }
+    return -1;
+}
+
+/**
+ * @brief Check if the list is empty
+ * 
+ * @param list 
+ * @return true 
+ * @return false 
+ */
+bool isEmpty(DoublyLinkedList *list) {
+    return list->head == NULL;
+}
+
+/**
+ * @brief Clear the list
+ * 
+ * @param list 
+ */
+void clear(DoublyLinkedList *list) {
+    Node *temp = list->head;
+    while(temp != NULL) {
+        Node *next = temp->next;
+        free(temp);
+        temp = next;
+    }
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+}
+
+/**
+ * @brief Free the list
+ * 
+ * @param list 
+ */
+void freeList(DoublyLinkedList *list) {
+    clear(list);
+    free(list);
 }
