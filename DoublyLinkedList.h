@@ -87,6 +87,13 @@ void deleteAtIndex(DoublyLinkedList *list, int index);
 void printList(DoublyLinkedList *list);
 
 /**
+ * @brief Reverse the list
+ * 
+ * @param list 
+ */
+void reverseList(DoublyLinkedList *list);
+
+/**
  * @brief Print the list in reverse order
  * 
  * @param list 
