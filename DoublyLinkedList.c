@@ -9,21 +9,7 @@
  * 
  */
 
-#include <stdio.h> // printf, scanf
-#include <stdlib.h> // malloc, free
-#include <stdbool.h> // bool, true, false
-
-typedef struct Node {
-    int data;
-    struct Node *next;
-    struct Node *prev;
-} Node;
-
-typedef struct DoublyLinkedList {
-    Node *head;
-    Node *tail;
-    int size;
-} DoublyLinkedList;
+#include "DoublyLinkedList.h"
 
 /**
  * @brief Create a new node
@@ -304,4 +290,12 @@ void clear(DoublyLinkedList *list) {
 void freeList(DoublyLinkedList *list) {
     clear(list);
     free(list);
+}
+
+int main(int argc, char** argv)
+{
+    // Create a linked-list
+
+
+    return 0;
 }
